@@ -45,7 +45,8 @@ const Input = styled.input`
 `;
 const Logo = styled.span`
     font-weight: bold;
-    font-size: 24px;
+    font-size: 40px;
+    letter-spacing: 3px;
 `;
 const MenuItem = styled.div`
     font-size: 14px;
@@ -64,7 +65,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>SouknaNet</Logo>
+          <Logo>Bazar.</Logo>
         </Center>
         <Right>
           <MenuItem>Register</MenuItem>
