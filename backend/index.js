@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv').config()
 const path = require('path')
+const cors = require('cors')
 const app = express()
 
 const port = process.env.PORT || 5000
@@ -21,14 +22,15 @@ app.use((req, res, next) => {
     })
 app.use(bodyParser.json({limit : '30mb', extended : true}))
 app.use(bodyParser.urlencoded({limit : '30mb', extended : true}))
+app.use(cors())
 
 connectDB()
 
 app.use('/bazar/auth', authRoutes)
 app.use('/bazar/user', userRoutes)
-app.use('/bazar/product', productRoutes)
-app.use('/bazar/cart', cartRoutes)
-app.use('/bazar/order', orderRoutes)
+app.use('/bazar/products', productRoutes)
+app.use('/bazar/carts', cartRoutes)
+app.use('/bazar/orders', orderRoutes)
 app.use('/bazar/payment', paymentRoutes)
 
 app.listen(port, () => console.log(`server started on port ${port}`))

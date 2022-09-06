@@ -4,7 +4,10 @@
   "description": "ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon backend/index.js"
+    "start": "node backend/app.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
