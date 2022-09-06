@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useLocation} from 'react-router'
+import {useLocation} from 'react-router-dom'
 import Announcement from '../components/Announcement'
 import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
