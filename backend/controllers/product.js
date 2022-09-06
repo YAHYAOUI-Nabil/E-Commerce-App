@@ -7,15 +7,15 @@ exports.createProduct = async(req, res) => {
         const savedProduct = await newProduct.save();
         res.status(200).json(savedProduct);
       } catch (err) {
-        res.status(500).json({message : 'Something went wrong?'});
+        res.status(500).json(err);
       }
 }
 
 exports.getProduct = async(req, res) => {
-    const {id} = req.param
+    const {id} = req.params
     
     try {
-        const product = await Product.find(id)
+        const product = await Product.findById(id)
         res.status(200).json(product);
     } catch (err) {
         res.status(500).json({message : 'Something went wrong?'});

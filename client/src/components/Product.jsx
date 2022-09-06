@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -43,8 +44,10 @@ const Circle = styled.div`
     position: absolute;
 `
 const Image = styled.img`
-    height: 75%;
+    height: 100%;
+    width: 100%;
     z-index: 2;
+    object-fit: fill;
 `
 const Icon = styled.div`
     width: 40px;
@@ -68,9 +71,17 @@ const Product = ({item}) => {
         <Circle />
         <Image src={item.img}/>
         <Info>
-            <Icon><ShoppingCartOutlinedIcon /></Icon>
-            <Icon><SearchOutlinedIcon /></Icon>
-            <Icon><FavoriteBorderOutlinedIcon/></Icon>
+            <Icon>
+                <ShoppingCartOutlinedIcon />
+            </Icon>
+            <Icon>
+                <Link to={`/products/${item._id}`}>
+                    <SearchOutlinedIcon />
+                </Link>
+            </Icon>
+            <Icon>
+                <FavoriteBorderOutlinedIcon/>
+            </Icon>
         </Info>
     </Container>
   )
