@@ -7,6 +7,7 @@ import ProductList from './pages/ProductList'
 import Register from './pages/register'
 import Login from './pages/Login'
 import Cart from './pages/Cart'
+import Success from './pages/Success'
 
 const App = () => {
   const user = true
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="products/category/:category" element={<ProductList />} />
             <Route path="products/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="success" element={<Success />} />
           </Routes>
         </BrowserRouter>
     </>

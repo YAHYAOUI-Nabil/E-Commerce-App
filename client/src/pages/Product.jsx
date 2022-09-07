@@ -7,6 +7,8 @@ import Navbar from "../components/Navbar"
 import Newsletter from "../components/Newsletter"
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
+import { addProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 import { mobile } from "../responsive"
 import  axios  from 'axios'
@@ -125,7 +127,9 @@ const Product = () => {
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState('')
-  const [size, setSize] = useState('')
+  const [size, setSize] = useState('');
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
@@ -145,6 +149,10 @@ const Product = () => {
     } else if(type==='inc'){
       setQuantity(quantity + 1)
     }
+  }
+
+  const handleClick = () => {
+    dispatch(addProduct({...product, quantity, color , size}));
   }
   
   return (
@@ -187,7 +195,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <AddIcon onClick={()=>handleQuantity('inc')}/>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
