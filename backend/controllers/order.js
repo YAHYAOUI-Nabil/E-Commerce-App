@@ -12,10 +12,12 @@ exports.createOrder = async(req, res) => {
 }
 
 exports.getUserOrders = async(req, res) => {
-    const {userId} = req.param
+    
+    const query = {userId: req.params.userId}
+    
     
     try {
-        const orders = await Order.find(userId)
+        const orders = await Order.find(query)
         res.status(200).json(orders);
     } catch (err) {
         res.status(500).json({message : 'Something went wrong?'});

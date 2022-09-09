@@ -26,7 +26,8 @@ exports.signin = async(req, res) => {
                     result : {message : 'User logged in.',
                     userId : userExist._id,
                     username : userExist.username,
-                    email},
+                    email: userExist.email,
+                    isAdmin: userExist.isAdmin},
                     token
                 })
     } catch (error) {

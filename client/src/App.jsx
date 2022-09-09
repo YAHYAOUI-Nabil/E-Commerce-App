@@ -1,6 +1,5 @@
 import React from 'react'
-import {
-  BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Home from './pages/Home'
 import Product from './pages/Product'
 import ProductList from './pages/ProductList'

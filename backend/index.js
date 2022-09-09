@@ -27,7 +27,7 @@ app.use(cors())
 connectDB()
 
 app.use('/bazar/auth', authRoutes)
-app.use('/bazar/user', userRoutes)
+app.use('/bazar/users', userRoutes)
 app.use('/bazar/products', productRoutes)
 app.use('/bazar/carts', cartRoutes)
 app.use('/bazar/orders', orderRoutes)

@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = async (req, res, next) => {
     try {
-        const token = await req.headers.authorization.split(' ')[1]
-        
+        const token = await req.headers.token.split(' ')[1]
         
         if(token) {
             let decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET)
