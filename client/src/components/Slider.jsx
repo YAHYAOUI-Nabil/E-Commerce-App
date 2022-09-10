@@ -1,43 +1,28 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import ArrowLeftOutlined from '@mui/icons-material/ArrowLeftOutlined';
-import ArrowRightOutlined from '@mui/icons-material/ArrowRightOutlined';
 import {sliderItems} from '../data'
+import { Swiper, SwiperSlide } from "swiper/react";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import "./styles.css";
+
+// import required modules
+import { Pagination, Navigation } from "swiper";
 import { mobile } from "../responsive"
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 100px);
     display: flex;
     position: relative;
     overflow: hidden;   
     ${mobile({ display: "none" })}; 
 `
-const Arrow = styled.div`
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: ${(props) => props.direction === "left" && "10px"};
-    right: ${(props) => props.direction === "right" && "10px"};
-    margin: auto;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 2;
-`;
-const Wrapper = styled.div`
-    height: 100%;
-    display: flex;
-    transition: all 1.5s ease;
-    transform: translateX(${(props => props.slideIndex * -100)}vw);
-`
+
 const Slide = styled.div`
     width: 100vw;
     height: 100vh;
@@ -54,7 +39,7 @@ const InfoContainer = styled.div`
     padding: 50px;
 `
 const Image = styled.img`
-    height: 80%;
+    object-fit: fill;
 `
 const Title = styled.h1`
     font-size: 70px;
@@ -73,36 +58,37 @@ const Button = styled.button`
 `
 
 const Slider = () => {
-    const [slideIndex, setSlideIndex] = useState(0)
-    const handleClick = (direction) => {
-        if(direction==='left'){
-            setSlideIndex(2>slideIndex>0  ? slideIndex+1 : 0)
-        }else if(direction==='right'){
-            setSlideIndex(slideIndex===0 ? 2 : slideIndex-1)
-        }
-    }
+    
   return (
     <Container>
-        <Arrow direction="left" onClick={()=>handleClick('left')}>
-            <ArrowLeftOutlined />
-        </Arrow>
-        <Wrapper slideIndex={slideIndex}>
-            {sliderItems.map((item) => (
-                <Slide key={item.id} bg={item.bg}>
-                    <ImgContainer>
-                        <Image src={item.img} />
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>{item.title}</Title>
-                        <Desc>{item.desc}</Desc>
-                        <Button>SHOW NOW</Button>
-                    </InfoContainer>
-                </Slide>
-            ))}
-        </Wrapper>
-        <Arrow direction="right" onClick={()=>handleClick('right')}>
-            <ArrowRightOutlined />
-        </Arrow>
+        <>
+            <Swiper
+                slidesPerView={1}
+                spaceBetween={30}
+                loop={true}
+                pagination={{
+                clickable: true,
+                }}
+                navigation={true}
+                modules={[Pagination, Navigation]}
+                className="mySwiper"
+            >
+                {sliderItems.map((item) => (
+                    <SwiperSlide key={item.id}>
+                        <Slide bg={item.bg}>
+                            <ImgContainer>
+                                <Image src={item.img} />
+                            </ImgContainer>
+                            <InfoContainer>
+                                <Title>{item.title}</Title>
+                                <Desc>{item.desc}</Desc>
+                                <Button>SHOW NOW</Button>
+                            </InfoContainer>
+                        </Slide>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </>
     </Container>
   )
 }

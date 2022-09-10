@@ -3,14 +3,15 @@ import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/userRedux';
 
 import { mobile } from "../responsive"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     height: 60px;
-    ${mobile({ height: "50px" })}
+    ${mobile({ height: "50px" })};
 `;
 const Wrapper = styled.div`
     display: flex;
@@ -61,13 +62,31 @@ const Logo = styled.span`
     color: black;
 `;
 const MenuItem = styled.div`
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+    ${mobile({ fontSize: "12px", marginLeft: "10px" })};
+`;
+const Button = styled.button`
     font-size: 14px;
     cursor: pointer;
-    ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+    background-color: unset;
+    border: unset;
+    color: black;
 `;
 
 const Navbar = () => {
   const quantity = useSelector(state => state.cart.quantity)
+  const username = useSelector(state => state.user?.currentUser?.result?.username)
+  const accountLink = `/${username}`
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/')
+  }
+  
   return (
     <Container>
       <Wrapper>
@@ -84,13 +103,27 @@ const Navbar = () => {
           </Link>
         </Center>
         <Right>
-          <Link to='/register'>
-            <MenuItem>Register</MenuItem>
-          </Link>
-          <Link to='/login'>
-            <MenuItem>Sign In</MenuItem>
-          </Link>
-          <Link to='/cart'>
+          {username 
+            ? 
+              <>
+                <Link to={accountLink} style={{textDecoration : "unset"}}>
+                  <MenuItem>{username}</MenuItem>
+                </Link>
+                <MenuItem>
+                  <Button onClick={handleLogout}>Logout</Button>
+                </MenuItem>
+              </>
+            :
+              <>
+                <Link to='/register' style={{textDecoration : "unset"}}>
+                  <MenuItem>Register</MenuItem>
+                </Link>
+                <Link to='/login' style={{textDecoration : "unset"}}>
+                  <MenuItem>Sign In</MenuItem>
+                </Link>
+              </>
+          }
+          <Link to='/cart' style={{textDecoration : "unset", fontSize: '14px'}}>
             <MenuItem>
               <Badge badgeContent={quantity} color="secondary">
                 <ShoppingCartOutlined />

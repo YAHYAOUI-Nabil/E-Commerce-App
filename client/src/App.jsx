@@ -6,11 +6,14 @@ import ProductList from './pages/ProductList'
 import Register from './pages/register'
 import Login from './pages/Login'
 import Cart from './pages/Cart'
+import Account from './pages/Account'
 import Success from './pages/Success'
 import { useSelector } from 'react-redux';
 
 const App = () => {
   const user = useSelector(state=>state.user.currentUser)
+  const username = useSelector(state => state.user?.currentUser?.result?.username)
+  const accountLink = `/${username}`
   return (
     <>
         <BrowserRouter>
@@ -25,6 +28,7 @@ const App = () => {
             <Route path="products/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
             <Route path="success" element={<Success />} />
+            <Route path={accountLink} element={<Account />} />
           </Routes>
         </BrowserRouter>
     </>

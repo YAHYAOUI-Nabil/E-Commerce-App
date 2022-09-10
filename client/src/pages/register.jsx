@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   width: 100vw;
@@ -52,6 +53,14 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const LinkItem = styled.div`
+  margin: 15px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+`;
+
 const Register = () => {
   return (
     <Container>
@@ -69,6 +78,9 @@ const Register = () => {
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
           <Button>CREATE</Button>
+          <Link to='/login'>
+            <LinkItem>ALREADY HAVE AN ACCOUNT</LinkItem>
+          </Link>
         </Form>
       </Wrapper>
     </Container>
